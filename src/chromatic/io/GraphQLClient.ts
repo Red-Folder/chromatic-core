@@ -4,29 +4,32 @@ import { Headers } from 'node-fetch';
 const CHROMATIC_GRAPHQL_URL = 'https://index.chromaticqa.com/graphql';
 
 interface GraphQLClientOptions {
-  headers: Headers;
   retries: number;
+  jwtToken?: string;
 }
 
 export default class GraphQLClient {
-  headers: Headers;
   retries: number;
   client: HTTPClient;
 
-  constructor({ headers, retries }: GraphQLClientOptions) {
-    this.headers = headers;
+  constructor({ retries, jwtToken }: GraphQLClientOptions) {
     this.retries = retries;
-    this.client = new HTTPClient();
+
+    let headers = { 'Content-Type': 'application/json' } as any as Headers;
+    if (jwtToken) {
+      headers = { 
+        ...headers,
+        Authorization: `Bearer ${jwtToken}` 
+      } as any as Headers;
+    }
+
+    this.client = new HTTPClient({headers : headers});
   }
 
   async runQuery<T>(query: string, variables: any): Promise<T> {
     const response = await this.client.fetch(
       CHROMATIC_GRAPHQL_URL,
       {
-        headers: {
-          ...this.headers,
-          'Content-Type': 'application/json',
-        },
         method: 'post',
         body: JSON.stringify({ query, variables }),
       },

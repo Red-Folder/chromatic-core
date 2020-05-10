@@ -1,4 +1,4 @@
-import { RequestInfo, RequestInit, Response, Headers } from 'node-fetch';
+import { RequestInfo, RequestInit, Response } from 'node-fetch';
 import GraphQLClient from '../../../src/chromatic/io/GraphQLClient';
 import { HTTPClientError } from '../../../src/chromatic/io/HTTPClient';
 import { CreateAppTokenData } from '../../../src/chromatic/getToken';
@@ -53,7 +53,7 @@ jest.mock('../../../src/chromatic/io/HTTPClient', () => () => ({
 }));
 
 describe('GraphQLClient', () => {
-    const client = new GraphQLClient({ headers: new Headers(), retries: 1 });
+    const client = new GraphQLClient({ retries: 1 });
 
     it('with a valid request will return a Response', async () => {
         const response = await client.runQuery<CreateAppTokenData>('query', { key: 'VALID' })

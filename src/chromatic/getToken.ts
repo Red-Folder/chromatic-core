@@ -1,5 +1,4 @@
 import GraphQLClient from './io/GraphQLClient';
-import { Headers } from 'node-fetch';
 import dedent from 'ts-dedent';
 
 const TesterCreateAppTokenMutation = `
@@ -13,14 +12,7 @@ export interface CreateAppTokenData {
 }
 
 const getToken = async (projectCode: string): Promise<string> => {
-  const headers: Headers = new Headers();
-
-  // Todo - so we need this?
-  //headers.append('x-chromatic-session-id', sessionId);
-  //headers.append('x-chromatic-cli-version', packageVersion);
-
   const client = new GraphQLClient({
-    headers: headers,
     retries: 3,
   });
 
