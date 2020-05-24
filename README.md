@@ -6,6 +6,8 @@ The intention behind this project is to expose the functionality provided by the
 Note that this project is not supported or endorsed by Chroma Software Inc who operate the https://github.com/chromaui/chromatic-cli project.
 
 # Production Suitability
+At this stage, this library is very much work-in-progress.  It certainly is not complete or usable in its current state.
+
 This project relies on endpoints from Chromatic which are not part of a public API - thus are potentially subject to change.
 
 As much as possible, this library will attempt to keep in sync with those changes.
